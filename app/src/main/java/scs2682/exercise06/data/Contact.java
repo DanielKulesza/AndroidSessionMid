@@ -1,8 +1,5 @@
 package scs2682.exercise06.data;
 
-/**
- * Created by Jurgis on 2016-10-25.
- */
 import android.support.annotation.NonNull;
 
 public class Contact {

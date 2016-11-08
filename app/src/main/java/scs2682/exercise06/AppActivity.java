@@ -56,7 +56,6 @@ public class AppActivity extends AppCompatActivity {
             if(convertView == null){
                 convertView = layoutInflater.inflate(R.layout.appactivity_dropdown_cell, parent, false);
             }
-
             Contact  contact = getItem(position);
             if(contact != null){
                 String title = contact.firstName + " " + contact.lastName;
@@ -66,7 +65,6 @@ public class AppActivity extends AppCompatActivity {
             int highlightBackgroundColor = selectedItemPosition == position ? Color.LTGRAY : 0;
             convertView.setBackgroundColor(highlightBackgroundColor);
             return convertView;
-
         }
     }
     private Button add;
@@ -83,7 +81,7 @@ public class AppActivity extends AppCompatActivity {
             int position = contacts.indexOf(contact);
 
             if(position > -1){
-                contacts.set(position, contact)
+                contacts.set(position, contact);
             }
             else{
                 contacts.add(contact);
@@ -96,6 +94,7 @@ public class AppActivity extends AppCompatActivity {
 
         //always remove the fragment instance
         getFragmentManager().beginTransaction().remove(form).commit();
+        getFragmentManager().popBackStack();
 
     }
 
@@ -136,9 +135,17 @@ public class AppActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void showContacts(Contact contact){
-
+        Fragment form = getFragmentManager().findFragmentByTag(Form.NAME);
+        if(form == null){
+            //no fragment opened
+            getFragmentManager().beginTransaction()
+                    .add(R.id.appactivity, new Form(), Form.NAME)
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 }

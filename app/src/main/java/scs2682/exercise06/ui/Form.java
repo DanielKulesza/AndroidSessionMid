@@ -95,6 +95,8 @@ public class Form extends Fragment {
                 getActivity().getFragmentManager().beginTransaction()
                         .remove(Form.this)
                         .commit();
+
+                getActivity().getFragmentManager().popBackStack();
             }
         });
         update = (Button)view.findViewById(R.id.update);
