@@ -89,6 +89,7 @@ public class AppActivity extends AppCompatActivity {
 
             }
             // set the selection of the spinner right away
+            spinnerAdapter.notifyDataSetChanged();
             spinner.setSelection(position, false);
         }
 
@@ -140,10 +141,14 @@ public class AppActivity extends AppCompatActivity {
 
     private void showContacts(Contact contact){
         Fragment form = getFragmentManager().findFragmentByTag(Form.NAME);
+        if(form != null){
+            return;
+        }
         if(form == null){
             //no fragment opened
+            form = Form.newInstance(contact.firstName,contact.lastName, contact.phone, contact.email);
             getFragmentManager().beginTransaction()
-                    .add(R.id.appactivity, new Form(), Form.NAME)
+                    .add(R.id.appactivity, form, Form.NAME)
                     .addToBackStack(null)
                     .commit();
         }
